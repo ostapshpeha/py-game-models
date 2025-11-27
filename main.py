@@ -11,12 +11,13 @@ def main() -> None:
 
     for nickname, player in data.items():
         race_info = player.get("race")
-        race_name = race_info.get("name")
-        race_description = race_info.get("description")
-        race, created_race = Race.objects.get_or_create(
-            name=race_name,
-            defaults={"description": race_description}
-        )
+        if race_info is not None:
+            race_name = race_info.get("name")
+            race_description = race_info.get("description")
+            race, created_race = Race.objects.get_or_create(
+                name=race_name,
+                defaults={"description": race_description}
+            )
 
         if player.get("guild"):
             guild_info = player.get("guild")
